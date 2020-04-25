@@ -37,6 +37,7 @@ jobs:
           paths:
             - ~/.gradle
           key: v1-dependencies-{{ checksum "build.gradle" }}
+      - run: docker login -u $docker_username -p $docker_password
       - run: gradle jib --image=frmnjn/hello:latest
   deploy:
     machine:
