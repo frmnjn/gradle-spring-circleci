@@ -49,14 +49,14 @@ jobs:
           command: |
             ssh $ssh_user@$ssh_host "cd test-firman && sudo sh ./deploy-test.sh"
 
-      workflows:
-        version: 2
-        build-and-deploy:
-          jobs:
-            - build
-            - deploy:
-                requires:
-                  - build # only deploy once build job has completed
-                filters:
-                  branches:
-                    only: master # only deploy on the master branch
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build # only deploy once build job has completed
+          filters:
+            branches:
+              only: master # only deploy on the master branch
