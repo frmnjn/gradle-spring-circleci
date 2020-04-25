@@ -37,6 +37,7 @@ jobs:
           paths:
             - ~/.gradle
           key: v1-dependencies-{{ checksum "build.gradle" }}
+      - run: gradle jib --image=frmnjn/hello:latest
   deploy:
     machine:
       enabled: true
@@ -48,7 +49,7 @@ jobs:
       - run:
           name: Deploy Over SSH
           command: |
-            ssh $ssh_user@$ssh_host "cd test-firman && ./test-echo.sh"
+            ssh $ssh_user@$ssh_host "cd test-firman/gradle-spring-circleci && ./autopushdocker.sh"
 
 workflows:
   version: 2
