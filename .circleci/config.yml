@@ -47,7 +47,7 @@ jobs:
       - run:
           name: Deploy Over SSH
           command: |
-            ssh $ssh_user@$ssh_host "cd test-firman && sudo sh ./deploy-test.sh"
+            ssh $ssh_user@$ssh_host "cd test-firman && ./test-echo.sh"
 
 workflows:
   version: 2
