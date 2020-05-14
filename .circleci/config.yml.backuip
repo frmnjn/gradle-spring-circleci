@@ -23,6 +23,7 @@ jobs:
 
     steps:
       - checkout
+
       # Download and cache dependencies
       - restore_cache:
           keys:
@@ -36,11 +37,8 @@ jobs:
           paths:
             - ~/.gradle
           key: v1-dependencies-{{ checksum "build.gradle" }}
-      - run: gradle build -x test
-      - run: docker build -t frmnjn/hello .
       - run: docker login -u $docker_username -p $docker_password
-      - run: docker push frmnjn/hello
-      # - run: gradle jib --image=frmnjn/cquran-webserver
+      - run: gradle jib --image=frmnjn/hello
   deploy:
     machine:
       enabled: true
@@ -51,8 +49,8 @@ jobs:
       - run:
           name: Deploy Over SSH
           command: |
-            # args1 = docker_image, args2 = docker_container_name yang mau di run di server
-            ssh $ssh_user@$ssh_host "./deploy.sh frmnjn/cquran-webserver cquran-webserver"
+            #            args1 = docker_image, args2 = docker_container_name yang mau di run di server
+                     ssh $ssh_user@$ssh_host "cd test-firman/gradle-spring-circleci && ./deploy.sh frmnjn/hello hello"
 
 workflows:
   version: 2
