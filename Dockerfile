@@ -5,6 +5,7 @@ COPY --from=prep /etc/envoy/envoy.yaml /etc/envoy/envoy.yaml
 COPY --from=prep /docker-entrypoint.sh /docker-entrypoint.sh
 COPY /build/libs/demo-0.0.1-SNAPSHOT.jar /app.jar
 COPY start.sh /start.sh
+RUN apk add curl
 EXPOSE 10000
 EXPOSE 8080
 
