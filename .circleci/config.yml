@@ -23,6 +23,8 @@ jobs:
 
     steps:
       - checkout
+      - setup_remote_docker:
+        docker_layer_caching: true
       # Download and cache dependencies
       - restore_cache:
           keys:
@@ -37,9 +39,10 @@ jobs:
             - ~/.gradle
           key: v1-dependencies-{{ checksum "build.gradle" }}
       - run: gradle build -x test
-      - run: docker build -t frmnjn/hello .
-      - run: docker login -u $docker_username -p $docker_password
-      - run: docker push frmnjn/hello
+      - run: |
+          docker build -t frmnjn/hello .
+          docker login -u $docker_username -p $docker_password
+          docker push frmnjn/hello
       # - run: gradle jib --image=frmnjn/cquran-webserver
   # deploy:
   #   machine:
