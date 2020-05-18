@@ -16,7 +16,7 @@ public class Controller {
     public String hello() throws UnknownHostException {
         InetAddress ip = InetAddress.getLocalHost();
         if(isHealthy){
-            return "hello from server - "+ ip + "- healthy";
+            return "asdsadasasdhello from server - "+ ip + "- healthy";
         } else {
             return "hello from server - "+ ip + "- unhealthy";
         }
